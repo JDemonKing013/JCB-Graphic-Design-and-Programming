@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Work — Design & Code</title>
+    <style>
+        :root {
+            --bg: #faf9f7;
+            --text: #1a1a1a;
+            --muted: #888;
+            --accent: #ff6b35;
+            --card: #ffffff;
+            --border: #e8e8e8;
+        }
+
+        [data-theme="dark"] {
+            --bg: #0f0f0f;
+            --text: #f0f0f0;
+            --muted: #999;
+            --accent: #ff8c5a;
+            --card: #1a1a1a;
+            --border: #2a2a2a;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            transition: background 0.3s, color 0.3s;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        header {
+            padding: 3rem 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid var(--border);
+            margin-bottom: 3rem;
+        }
+
+        h1 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            letter-spacing: -0.02em;
+        }
+
+        .tagline {
+            color: var(--muted);
+            font-size: 0.9rem;
+            margin-top: 0.25rem;
+        }
+
+        .controls {
+            display: flex;
+            gap: 1rem;
+            align-items: center;
+        }
+
+        button {
+            background: var(--card);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            cursor: pointer;
+            font-size: 0.85rem;
+            transition: all 0.2s;
+        }
+
+        button:hover, button.active {
+            background: var(--text);
+            color: var(--bg);
+            border-color: var(--text);
+        }
+
+        .theme-toggle {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            padding: 0;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.1rem;
+        }
+
+        .filters {
+            display: flex;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .project {
+            background: var(--card);
+            border: 1px solid var(--border);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: transform 0.2s, box-shadow 0.2s;
+            cursor: pointer;
+        }
+
+        .project:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.08);
+        }
+
+        .project-thumb {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, var(--accent) 0%, #ff9f7a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+        }
+
+        .project-info {
+            padding: 1.25rem;
+        }
+
+        .project-type {
+            font-size: 0.75rem;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--accent);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+        }
+
+        .project-desc {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        .project-tags {
+            display: flex;
+            gap: 0.5rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+
+        .tag {
+            font-size: 0.75rem;
+            padding: 0.25rem 0.75rem;
+            background: var(--bg);
+            border-radius: 20px;
+            color: var(--muted);
+        }
+
+        .hidden {
+            display: none !important;
+        }
+
+        footer {
+            text-align: center;
+            padding: 3rem 0;
+            color: var(--muted);
+            font-size: 0.85rem;
+            border-top: 1px solid var(--border);
+        }
+
+        @media (max-width: 600px) {
+            .grid {
+                grid-template-columns: 1fr;
+            }
+            header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <div>
+                <h1>JCB Graphick Design and Programming</h1>
+                <div class="tagline">Graphic Design & Simple Programming</div>
+            </div>
+            <div class="controls">
+                <button class="theme-toggle" onclick="toggleTheme()" title="Toggle theme">◐</button>
+            </div>
+        </header>
+
+        <div class="filters">
+            <button class="active" onclick="filter('all', this)">All Work</button>
+            <button onclick="filter('design', this)">Graphic Design</button>
+            <button onclick="filter('code', this)">Programming</button>
+        </div>
+
+        <div class="grid" id="projects">
+            <!-- Graphic Design Projects -->
+            <div class="project" data-category="design">
+                <div class="project-thumb">🎨</div>
+                <div class="project-info">
+                    <div class="project-type">Graphic Design</div>
+                    <div class="project-title">Brand Identity System</div>
+                    <div class="project-desc">Complete visual identity including logo, color palette, and typography guidelines for a local coffee shop.</div>
+                    <div class="project-tags">
+                        <span class="tag">Branding</span>
+                        <span class="tag">Illustrator</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project" data-category="design">
+                <div class="project-thumb" style="background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);">✏️</div>
+                <div class="project-info">
+                    <div class="project-type">Graphic Design</div>
+                    <div class="project-title">Editorial Layout</div>
+                    <div class="project-desc">Magazine spread design focusing on whitespace, grid systems, and typographic hierarchy.</div>
+                    <div class="project-tags">
+                        <span class="tag">InDesign</span>
+                        <span class="tag">Print</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Programming Projects -->
+            <div class="project" data-category="code">
+                <div class="project-thumb" style="background: linear-gradient(135deg, #11998e 0%, #38ef7d 100%);">⚡</div>
+                <div class="project-info">
+                    <div class="project-type">Programming</div>
+                    <div class="project-title">Task Automator</div>
+                    <div class="project-desc">A Python script that organizes downloads folder by file type and renames files based on date patterns.</div>
+                    <div class="project-tags">
+                        <span class="tag">Python</span>
+                        <span class="tag">Automation</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project" data-category="code">
+                <div class="project-thumb" style="background: linear-gradient(135deg, #fc466b 0%, #3f5efb 100%);">🌐</div>
+                <div class="project-info">
+                    <div class="project-type">Programming</div>
+                    <div class="project-title">Personal Dashboard</div>
+                    <div class="project-desc">Minimalist start page with weather, todo list, and bookmark manager using vanilla JavaScript.</div>
+                    <div class="project-tags">
+                        <span class="tag">HTML/CSS/JS</span>
+                        <span class="tag">Frontend</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project" data-category="design">
+                <div class="project-thumb" style="background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);">🖼️</div>
+                <div class="project-info">
+                    <div class="project-type">Graphic Design</div>
+                    <div class="project-title">Social Media Kit</div>
+                    <div class="project-desc">Template system for Instagram posts and stories with consistent visual language and easy customization.</div>
+                    <div class="project-tags">
+                        <span class="tag">Social</span>
+                        <span class="tag">Canva/Figma</span>
+                    </div>
+                </div>
+            </div>
+
+            <div class="project" data-category="code">
+                <div class="project-thumb" style="background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);">🤖</div>
+                <div class="project-info">
+                    <div class="project-type">Programming</div>
+                    <div class="project-title">Color Palette Generator</div>
+                    <div class="project-desc">Web tool that extracts dominant colors from uploaded images and generates accessible color combinations.</div>
+                    <div class="project-tags">
+                        <span class="tag">JavaScript</span>
+                        <span class="tag">Canvas API</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <footer>
+            Built with simplicity in mind. Replace the emoji placeholders with your actual project images.
+        </footer>
+    </div>
+
+    <script>
+        // Theme toggle
+        function toggleTheme() {
+            const html = document.documentElement;
+            const current = html.getAttribute('data-theme');
+            html.setAttribute('data-theme', current === 'dark' ? 'light' : 'dark');
+            localStorage.setItem('theme', current === 'dark' ? 'light' : 'dark');
+        }
+
+        // Load saved theme
+        const saved = localStorage.getItem('theme');
+        if (saved) document.documentElement.setAttribute('data-theme', saved);
+        else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
+            document.documentElement.setAttribute('data-theme', 'dark');
+        }
+
+        // Filter functionality
+        function filter(category, btn) {
+            // Update active button
+            document.querySelectorAll('.filters button').forEach(b => b.classList.remove('active'));
+            btn.classList.add('active');
+
+            // Filter projects
+            document.querySelectorAll('.project').forEach(project => {
+                if (category === 'all' || project.dataset.category === category) {
+                    project.classList.remove('hidden');
+                } else {
+                    project.classList.add('hidden');
+                }
+            });
+        }
+    </script>
+</body>
+</html>
